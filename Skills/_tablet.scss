@@ -1,0 +1,21 @@
+@media screen and (768px <= width < 1024px) {
+
+    .skillsContainer {
+            ul.skillsList {
+                li.skillsItems {
+                img {
+                    width: 35vw;
+                }
+            }
+        }
+    }
+
+    .modal-content,
+    .modal-contentBG {
+        max-width: 95vw;
+    }
+    
+    .shader__layer {
+        width: 95vw;
+    }
+}

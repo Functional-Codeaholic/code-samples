@@ -1,0 +1,231 @@
+@import './mobile';
+@import './tablet';
+@import './standard';
+@import './hd1080';
+@import './hd4kup';
+
+body.active-modal {
+    overflow-y: hidden;
+}
+
+.skillsContainer {
+    // Most of this will be defined in Layout.scss. Only unique items to skills will be defined here
+
+    .skillsItem {
+            width: 100%;
+            min-height: 20%;
+
+        h2 {
+            width: 100%;
+            text-align: center;
+            z-index: 200;
+            position: relative;
+
+            a {
+                color: #ffffff66;
+
+                &:hover {
+                    color: #ff652f;
+                }
+            }
+        }
+    }
+
+    h1 {
+        // keyframes for these animations found in Layout.scss
+        transform: translateX(50%);
+        animation: slide-left 1.5s ease-in;
+        animation-fill-mode: forwards;
+    }
+
+    ul.skillsList {
+        display: flex;
+        column-count: 2;
+        column-gap: 1vw;
+        row-gap: 1vw;
+        flex-wrap: wrap;
+        column-fill: auto;
+
+        li.skillsItems {
+            img {
+                position: relative;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+            img.smallCard {
+                &:hover {
+                    opacity: 0.7;
+                }
+            }
+        }
+    }
+}
+
+.skillsModal {
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    padding-top: 100px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #000;
+    background-color: #000000dd;
+    perspective: 10000px;
+}
+
+.cardFlip {
+    position: relative;
+    width: 100vw;
+    transform-style: preserve-3d;
+    animation: zoom 3s;
+    z-index: 199;
+}
+
+.cardFront,
+.cardBack {
+    position: absolute;
+}
+
+.cardFront {
+    z-index: 200;
+    animation: hideShow 3s;
+    animation-fill-mode: forwards;
+}
+
+.shader {
+    position: relative;
+    z-index: 201;
+    display: block;
+    overflow: hidden;
+    backface-visibility: hidden;
+}
+
+.modal-content,
+.modal-contentBG {
+    margin: auto;
+    display: block;
+    transition: transform 0.5s;
+    position: relative;
+    z-index: 202;
+}
+
+.shader__layer {
+    background: black;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 100%;
+}
+
+.specular {
+    width: 600px;
+    height: 337.5px;
+    background-color: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    mix-blend-mode: color-dodge;
+    background-attachment: fixed;
+    border-radius: 5%;
+    z-index: 203;
+    background-position: top center;
+    background-image: linear-gradient(125deg,#f09 30%,#fc8b00,#ff0,#00ff8a,#00cfff,#cc4cfa 70%);
+}
+
+.mask {
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    z-index: 204;
+    mix-blend-mode: multiply;
+    border-radius: 50px;
+    background-image: url('./images/holo-pattern.webp');
+
+    &:hover {
+        background-size: 30%;
+        mix-blend-mode: color-burn;
+        background-image: url('./images/holo-pattern.png');
+    }
+
+    &::after {
+        content: '';
+        background-position: center;
+        background-attachment: fixed;
+        z-index: 205;
+        mix-blend-mode: color-burn;
+        background-image: linear-gradient(45deg,#333 40%,#ddd 60%,#333);
+    }
+}
+
+.cardBack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    animation: showHide 3s;
+    animation-fill-mode: forwards;
+    transform: rotateY(180deg);
+    opacity: 1;
+}
+
+@keyframes zoom {
+    0% {
+        transform: rotateY(0) scale(0);
+    }
+    100% { 
+        transform: rotateY(360deg) scale(1);
+    }
+}
+@keyframes showHide {
+    0%, 15% {
+        z-index: 100;
+        opacity: 1;
+    }
+    25%, 40% {
+        z-index: 200;
+        opacity: 1;
+    }
+    55%, 99% {
+        z-index: 100;
+        opacity: 1;
+    }
+    100% {
+        z-index: 100;
+        opacity: 0;
+    }
+}
+@keyframes hideShow {
+    0%, 15% {
+        z-index: 200;
+    }
+    25%, 40% {
+        z-index: 100;
+    }
+    55%, 100% {
+        z-index: 200;
+    }
+}
+
+.close {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+
+    &:hover,
+    &:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+}
