@@ -1,15 +1,20 @@
 # shimmering-skill-cards
 
 INSTALLATION INSTRUCTIONS
+
   1- upload the directory named "Skills" to the "src" directory in your app
+  
   2- upload the directory named "images" to the "public" directory in your app
+  
   3- in "App.js" or whichever file you'd like the cards to appear in, 
       put "import Skills from './Skills/Skills';" in the top of the file, and
       "<Skills />" in the file where you'd like them to appear. You may have to 
       adjust the import location depending on where you are calling the module from.
+      
   4- run npm i react-portal to install the portal
       
 PURPOSE
+
   A creative way of demonstrating your skills on a portfolio website.
 
 INSPIRATION/CREDITS
