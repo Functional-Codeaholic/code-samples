@@ -27,13 +27,12 @@ const Skills = () => {
 
     return (
         <>
-            <div className="" ref={ containerRef } />
+            <div ref={ containerRef } />
             <div className='container skillsContainer' id="Skills">
-                { isVisible ? (
-                    <h1 className="skillsH1">Skills & Abilities</h1>
-                ) : (
-                    <div className="placeholder">Skills & Abilities</div>
-                ) }
+                {isVisible && <h1 className="skillsH1">Skills & Abilities</h1>}
+                {/* Only render the h1 tag if isVisible is true */}
+                {!isVisible && <div className="placeholder">Skills & Abilities</div>}
+                {/* Only render the placeholder if isVisible is false */}
                 <SkillsItems />
             </div>
         </>

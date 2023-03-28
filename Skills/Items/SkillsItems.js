@@ -4,6 +4,37 @@ import SkillsList from "./SkillsList";
 import ModalGyro from "./Modal/ModalGyro";
 import ModalMouse from "./Modal/ModalMouse";
 
+const imgDir = "/wp-content/themes/functional-codeaholic/assets/images/skills-cards/";
+
+// detect if device has Gyroscopic positioning available
+function isDeviceWithGyro() {
+    let gyro = false;
+    let permission = false;
+    window.addEventListener('deviceorientation', function(e) {
+        if (e.gamma !== null) {
+            gyro = true;
+        }
+    });
+// iOS 13+ devices require permission to use Gyro. Get permission if it is one of those devices.
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission()
+        .then(permissionState => {
+          if (permissionState === 'granted') {
+            permission = true;
+          }
+        })
+        .catch(console.error);
+    }
+    return true;
+}
+
+// detect if device is likely a laptop based on OS of device.
+function isLaptop() {
+    const isDesktopOS = ['MacIntel', 'Win32', 'Win64', 'Linux i686', 'Linux x86_64'].includes(navigator.userAgentData.platform);
+
+    return isDesktopOS;
+}
+
 const SkillsItems = () => {
     const [modal, setModal] = useState(false);
     const [isShown, setIsShown] = useState("");
@@ -28,32 +59,15 @@ const SkillsItems = () => {
                             setIsShown("");
                         }
                     }
-                    let image = "/images/Skills/" + skill.slug +"-0400x0225.webp"
+                    let image = imgDir + skill.slug +"-0400x0225.webp"
                     let experience = new Date().getFullYear() - skill.firstUse;
                     let altText = skill.name + " " + experience + "+ Years Experience";
 
-                    let whichModal = JSON.stringify(skill.slug);
+                    let whichSkill = JSON.stringify(skill.slug);
                     function modalClick() {
-                        // feature detect
-                        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-                          DeviceOrientationEvent.requestPermission()
-                            .then(permissionState => {
-                              if (permissionState === 'granted') {
-                                setMouseOrGyro(<ModalGyro whichModal={ whichModal } />);
-                              } else {
-                                setMouseOrGyro(<ModalMouse whichModal={ whichModal } />);
-                              }
-                            })
-                            .catch(console.error);
-                        } else {
-                            // handle regular non iOS 13+ devices
-                                window.addEventListener('deviceorientation', function(e) {
-                                    if (e.gamma === null) {
-                                        setMouseOrGyro(<ModalMouse whichModal={ whichModal } />);
-                                    } else {
-                                        setMouseOrGyro(<ModalGyro whichModal={ whichModal } />);
-                                    }
-                                });
+                        setMouseOrGyro(<ModalMouse whichSkill={ whichSkill } />);
+                        if (!isLaptop() && isDeviceWithGyro()) {
+                            setMouseOrGyro(<ModalGyro whichSkill={ whichSkill } />);
                         }
                     }
                     return (
@@ -74,6 +88,7 @@ const SkillsItems = () => {
                                                 <div
                                                     className={ skill.slug + " skillsModal" }
                                                     onClick={ toggleModal }
+                                                    key={skill.id}
                                                 > 
                                                     { mouseOrGyro }
                                                 </div>

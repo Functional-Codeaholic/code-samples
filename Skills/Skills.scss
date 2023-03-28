@@ -146,12 +146,12 @@ body.active-modal {
     z-index: 204;
     mix-blend-mode: multiply;
     border-radius: 50px;
-    background-image: url('./images/holo-pattern.webp');
+    background-image: url('../../../assets/images/skills-cards/holo-pattern.webp');
 
     &:hover {
         background-size: 30%;
         mix-blend-mode: color-burn;
-        background-image: url('./images/holo-pattern.png');
+        background-image: url('../../../assets/images/skills-cards/holo-pattern.png');
     }
 
     &::after {

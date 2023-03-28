@@ -1,8 +1,9 @@
-
 import React from "react";
 import { imgHeight, imgWidth } from '../_vars';
 
-const ModalCSS = (whichModal) => {
+const imgDir = '/wp-content/themes/functional-codeaholic/assets/images/skills-cards/';
+
+const ModalCSS = (whichSkill) => {
     let count = 0;
     const updRate = 10;
     const tiltLimit = 45;
@@ -44,9 +45,9 @@ const ModalCSS = (whichModal) => {
         }
     });
     
-    let slug = JSON.parse(whichModal.whichModal);
-    let skillImg = "/images/Skills/" + slug + "-" + imgWidth + "x" + imgHeight + ".webp";
-    let backImg = "/images/Skills/back-" + imgWidth + "x" + imgHeight + ".webp";
+    let slug = JSON.parse(whichSkill.whichSkill);
+    let skillImg = imgDir + slug + "-" + imgWidth + "x" + imgHeight + ".webp";
+    let backImg = imgDir + "back-" + imgWidth + "x" + imgHeight + ".webp";
 
    
     return (
@@ -63,7 +64,7 @@ const ModalCSS = (whichModal) => {
                     <img 
                         src={skillImg} 
                         className="modal-content" 
-                        alt=""
+                        alt={ slug }
                     />
                     <div className="shader__layer specular" id="specular" >
                         <div className="shader__layer mask" id="mask"  />
@@ -73,6 +74,7 @@ const ModalCSS = (whichModal) => {
                     <img 
                         src={backImg} 
                         className="modal-contentBG" 
+                        alt={ slug }
                     />
                 </div>
             </div>
